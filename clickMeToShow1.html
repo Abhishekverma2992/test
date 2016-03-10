@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html  ng-app="clickMe">
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="clickMeToShow_support.js"></script>
+	<title>show the names on click </title>
+<style>
+.hidden{
+ display: none;
+}
+	ul 
+	{list-style-type: none;}
+
+
+	li img{
+
+border-radius: 50%;
+margin-right: 10px;
+margin-left: 5px;
+height: 50px;
+width: 50px;
+}
+</style>
+</head>
+
+<body ng-controller="myController as showList">
+<input type="text" ng-model="search" placeholder="filter">
+
+<ul ng-class="{'hidden':!showList.toggle}">
+
+	<li ng-repeat=" item in showList.list | filter: search | orderBy:'Age'">
+<img ng-src={{item.img}}/> {{item.Name}}-{{item.Age}}	
+<a href="#" ng-click="remove(list)">Delete</a>
+<a href="#" ng-click="edit(list)">Edit</a>
+
+
+	<li>
+		<input type="text" id="Name" ng-model="current.Name"value="{{current.Name}}"/>
+		<input type="text" id="Age" ng-model="current.Age" value="{{current.Age}}"/>
+
+	</li>  
+</ul>
+<button ng-if ="!showList.toggle" ng-click="showList.toggle=true">Show Names</button>
+<button ng-if ="showList.toggle" ng-click="showList.toggle=false">Hide Names</button>
+
+<form ng-submit="addPerson()">
+
+<input type="text" ng-model="showList.name"  placeholder="Enter your name">
+<input type="number" ng-model="showList.age" placeholder="Enter your age">
+<input type="submit" value="submit">
+ 
+
+</form>
+</body>
+</html>
